@@ -15,8 +15,8 @@ import { assign } from '@ember/polyfills';
 import React from 'react';
 import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
-import reactDataParser from 'busy-react/utils/react-data-parser';
-import lookupReact from 'busy-react/utils/lookup-react';
+import reactDataParser from '@busy-web/react/utils/react-data-parser';
+import lookupReact from '@busy-web/react/utils/lookup-react';
 
 /**
  * Component helper for mounting a React Component Tree
