@@ -2,19 +2,27 @@ module.exports = {
   root: true,
   parserOptions: {
     ecmaVersion: 2017,
-    sourceType: 'module'
+    sourceType: 'module',
+		emcaFeatures: {
+			jsx: true
+		}
   },
   plugins: [
-    'ember'
+		'babel',
+    'ember',
+		'react'
   ],
   extends: [
     'eslint:recommended',
-    'plugin:ember/recommended'
+    'plugin:ember/recommended',
+		'plugin:react/recommended'
   ],
   env: {
     browser: true
   },
   rules: {
+		'react/jsx-uses-react': 2,
+		'react/jsx-uses-vars': 2
   },
   overrides: [
     // node files
@@ -41,6 +49,7 @@ module.exports = {
       },
       plugins: ['node'],
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
+        "node/no-unpublished-require": false
         // add your custom rules and overrides for node files here
       })
     }
