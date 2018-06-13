@@ -117,7 +117,7 @@ const ReactComponent = Component.extend({
 		const name = this.get('name').replace(/\./g, '/');
 		const model = this.get('model');
 		const component = lookupReact(this, `component:${name}`);
-		return (<ReactMount reactClass={component} model={model} />);
+		return React.createElement(ReactMount, { reactClass: component, model }, null);
 	},
 
 	/**
@@ -199,7 +199,7 @@ const StateManager = {
  * @return {ReactDom.element}
  */
 const renderComponent = (ComponentClass, state) => {
-	return (<ComponentClass state={state} />);
+	return React.createElement(ComponentClass, { state }, null);
 };
 
 /**
@@ -216,14 +216,16 @@ class ReactMount extends React.Component {
 	}
 
 	render() {
-		let { reactClass } = this.props;
-		return (
-			<div className="react-mount">
-				<ModelContext.Provider value={this.state}>
-					<ModelContext.Consumer>{({ model }) => renderComponent(reactClass, model)}</ModelContext.Consumer>
-				</ModelContext.Provider>
-			</div>
-		);
+    let { reactClass } = this.props;
+
+    // create a react consumer element
+    let consumer = React.createElement(ModelContext.Consumer, null, ({ model }) => renderComponent(reactClass, model));
+
+    // create a reaact provider element
+    let provider = React.createElement(ModelContext.Provider, { value: this.state }, consumer);
+
+    // create a container mount elelemt
+		return React.createElement('div',  { className: "react-mount" }, provider);
 	}
 }
 
