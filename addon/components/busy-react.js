@@ -54,10 +54,14 @@ export default Component.extend({
 		const reactName = `br-${name}`;
 
 		// save component name
-		this.set('__reactName__', reactName);
+    this.set('__reactName__', reactName);
 
-		// register new component to be loaded
-		owner.register(`component:${reactName}`, component);
+    // register new component to be loaded if it was not already loaded
+    let rc = owner.factoryFor(`component:${reactName}`);
+    console.log('rc', rc);
+    if (!(rc && rc.class)) {
+      owner.register(`component:${reactName}`, component);
+    }
 
 		// init state object
 		if (isNone(this.__state__)) {
