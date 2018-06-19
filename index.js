@@ -1,5 +1,10 @@
 'use strict';
 
+//const stew = require('broccoli-stew');
+const cjs = require('ember-cli-cjs-transform');
+
+console.log(cjs);
+
 module.exports = {
   name: '@busy-web/react',
 
@@ -40,7 +45,42 @@ module.exports = {
 		return true;
   },
 
+  importTransforms: cjs.importTransforms,
+
   importDependencies() {
+    this.import('node_modules/tectonic/transpiled/index.js', {
+      using: [{ transformation: 'cjs', as: 'tectonic' }],
+      prepend: true
+    });
+
+    this.import({
+      development: 'node_modules/react-redux/dist/react-redux.js',
+      production: 'node_modules/react-redux/dist/react-redux.min.js'
+    }, {
+      prepend: true
+    });
+
+		this.import({
+      development: 'node_modules/react-redux/dist/react-redux.js',
+      production: 'node_modules/react-redux/dist/react-redux.min.js'
+    }, {
+      prepend: true
+    });
+
+		this.import({
+      development: 'node_modules/redux/dist/redux.js',
+      production: 'node_modules/redux/dist/redux.min.js'
+    }, {
+      prepend: true
+    });
+
+		this.import({
+      development: 'node_modules/redux/dist/redux.js',
+      production: 'node_modules/redux/dist/redux.min.js'
+    }, {
+      prepend: true
+    });
+
 		this.import({
 			development: 'node_modules/prop-types/prop-types.js',
 			production: 'node_modules/prop-types/prop-types.min.js'

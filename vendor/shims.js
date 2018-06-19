@@ -14,5 +14,10 @@
 	define('prop-types', [], function() {
 		'use strict';
 		return { default: PropTypes };
-	});
+  });
+
+  define('react-redux', [], function() {
+		'use strict';
+		return { default: ReactRedux };
+  });
 })();
