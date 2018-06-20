@@ -1,12 +1,26 @@
 'use strict';
 
-//const stew = require('broccoli-stew');
 const cjs = require('ember-cli-cjs-transform');
-
-console.log(cjs);
 
 module.exports = {
   name: '@busy-web/react',
+
+  config(env, config) {
+    let envDefaults = {
+      NODE_ENV: env,
+      entry: 'react'
+    };
+
+    let APP = Object.assign({}, config.APP);
+    let busyWeb = Object.assign({}, APP['busy-web']);
+    let react = Object.assign({}, envDefaults, busyWeb.react);
+
+    busyWeb.react = react;
+    APP['busy-web'] = busyWeb;
+    config.APP = APP;
+
+    return {};
+  },
 
   included: function included(app) {
     this._super.included.apply(this, arguments);
@@ -39,6 +53,7 @@ module.exports = {
     }
 
     app.options.babel = babel;
+    this.options = app.options;
   },
 
 	isDevelopingAddon() {
@@ -48,6 +63,11 @@ module.exports = {
   importTransforms: cjs.importTransforms,
 
   importDependencies() {
+    this.import('node_modules/tectonic-superagent/transpiled/index.js', {
+      using: [{ transformation: 'cjs', as: 'tectonic-superagent' }],
+      prepend: true
+    });
+
     this.import('node_modules/tectonic/transpiled/index.js', {
       using: [{ transformation: 'cjs', as: 'tectonic' }],
       prepend: true

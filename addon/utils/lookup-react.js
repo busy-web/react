@@ -15,7 +15,10 @@ export default function lookupReact(target, name) {
 
 	// if react-components folder is not in main app folder
 	// then use the prefix to look in an addon for the react-components
-	//parsedName.prefix = 'busy-react';
-	parsedName.prefix = `${parsedName.prefix}/react`;
+  //parsedName.prefix = 'busy-react';
+  let { entry } = window.process.env;
+  entry = entry.replace(/\/$/, '');
+
+  parsedName.prefix = `${parsedName.prefix}/${entry}`;
 	return r.resolveOther(parsedName);
 }
