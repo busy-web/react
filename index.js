@@ -1,7 +1,6 @@
 'use strict';
 
-const cjsTransform = require('ember-cli-cjs-transform');
-const superagent = require('superagent');
+//const cjsTransform = require('ember-cli-cjs-transform');
 
 module.exports = {
   name: '@busy-web/react',
@@ -63,7 +62,7 @@ module.exports = {
 
   // importTransforms: cjsTransform.importTransforms,
 
-  importDependencies() {
+  //importDependencies() {
   //   this.import('node_modules/tectonic-superagent/transpiled/index.js', {
   //     using: [{ transformation: 'cjs', as: 'tectonic-superagent', plugins: [ superagent() ] }],
   //     prepend: true
@@ -119,8 +118,8 @@ module.exports = {
 	//     production: 'node_modules/react/umd/react.production.min.js'
   //   }, { prepend: true });
 
-		this.import('vendor/shims.js');
-  }
+    //this.import('vendor/shims.js');
+    //}
 };
 
 function addPlugin(name, babel) {

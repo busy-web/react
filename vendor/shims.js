@@ -1,8 +1,4 @@
-/* !globals define, React, ReactDOM, PropTypes, Redux, ReactRedux */
-
-import React from 'npm:react';
-import ReactDOM from 'npm:react-dom';
-import PropTypes from 'npm:prop-types';
+/* globals define, React, ReactDOM, PropTypes, Redux, ReactRedux */
 
 (function() {
   define('react', [], function() {
@@ -20,19 +16,19 @@ import PropTypes from 'npm:prop-types';
     return { default: PropTypes };
   });
 
-  // define('redux', [], function() {
-  //   'use strict';
-  //   return {
-  //     applyMiddleware: Redux.applyMiddleware,
-  //     bindActionCreators: Redux.bindActionCreators,
-  //     combineReducers: Redux.combineReducers,
-  //     compose: Redux.compose,
-  //     createStore: Redux.createStore
-  //   };
-  // });
+  define('redux', [], function() {
+    'use strict';
+    return {
+      applyMiddleware: Redux.applyMiddleware,
+      bindActionCreators: Redux.bindActionCreators,
+      combineReducers: Redux.combineReducers,
+      compose: Redux.compose,
+      createStore: Redux.createStore
+    };
+  });
 
-  // define('react-redux', [], function() {
-  //   'use strict';
-  //   return { default: ReactRedux };
-  // });
+  define('react-redux', [], function() {
+    'use strict';
+    return { default: ReactRedux };
+  });
 })();
