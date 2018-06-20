@@ -12,9 +12,11 @@ import { isNone, isEmpty } from '@ember/utils';
 import { assert } from '@ember/debug';
 import { dasherize } from '@ember/string';
 import { assign } from '@ember/polyfills';
-//import React from 'react';
+
+import React from 'react';
 import ReactDom from 'react-dom';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+
 import createApp from './../app';
 import reactDataParser from '@busy-web/react/utils/react-data-parser';
 import lookupReact from '@busy-web/react/utils/lookup-react';
