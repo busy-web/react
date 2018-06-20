@@ -13,9 +13,7 @@ import { assert } from '@ember/debug';
 import { dasherize } from '@ember/string';
 import { assign } from '@ember/polyfills';
 
-import React from '@busy-web/react/react';
 import ReactDom from 'react-dom';
-import PropTypes from 'prop-types';
 
 import createApp from './../app';
 import reactDataParser from '@busy-web/react/utils/react-data-parser';
