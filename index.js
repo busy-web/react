@@ -1,6 +1,9 @@
 'use strict';
 
-const cjs = require('ember-cli-cjs-transform');
+const cjsTransform = require('ember-cli-cjs-transform');
+const commonjs = require('rollup-plugin-commonjs');
+// const nodeBuiltins = require('rollup-plugin-node-builtins');
+// const superagent = require('superagent');
 
 module.exports = {
   name: '@busy-web/react',
@@ -60,9 +63,19 @@ module.exports = {
 		return true;
   },
 
-  importTransforms: cjs.importTransforms,
+  importTransforms: cjsTransform.importTransforms,
 
   importDependencies() {
+    this.import('node_modules/reduce-component/index.js', {
+      using: [{ transformation: 'cjs', as: 'reduce' }],
+      prepend: true
+    });
+
+    this.import('node_modules/eventemitter3/index.js', {
+      using: [{ transformation: 'cjs', as: 'emitter' }],
+      prepend: true
+    });
+
     this.import('node_modules/tectonic-superagent/transpiled/index.js', {
       using: [{ transformation: 'cjs', as: 'tectonic-superagent' }],
       prepend: true

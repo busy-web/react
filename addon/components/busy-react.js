@@ -2,19 +2,19 @@
  * @module Component
  *
  */
-import DS from 'ember-data';
+//import DS from 'ember-data';
 import hbs from 'htmlbars-inline-precompile';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import { get, observer } from '@ember/object';
+//import { get, observer } from '@ember/object';
 import { getOwner } from '@ember/application';
 import { isNone, isEmpty } from '@ember/utils';
 import { assert } from '@ember/debug';
 import { dasherize } from '@ember/string';
 import { assign } from '@ember/polyfills';
-import React from 'react';
+//import React from 'react';
 import ReactDom from 'react-dom';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import createApp from './../app';
 import reactDataParser from '@busy-web/react/utils/react-data-parser';
 import lookupReact from '@busy-web/react/utils/lookup-react';
