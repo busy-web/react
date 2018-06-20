@@ -1,6 +1,6 @@
 'use strict';
 
-const webpack = require('ember-auto-import').webpackBundler;
+//const webpack = require('ember-auto-import').webpackBundler;
 
 module.exports = {
   name: '@busy-web/react',
