@@ -28,9 +28,10 @@ module.exports = {
     // node files
     {
       files: [
+        'ember-cli-build.js',
         'index.js',
         'testem.js',
-        'ember-cli-build.js',
+        'blueprints/*/index.js',
         'config/**/*.js',
         'tests/dummy/config/**/*.js'
       ],
@@ -49,8 +50,8 @@ module.exports = {
       },
       plugins: ['node'],
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
-        "node/no-unpublished-require": false
-        // add your custom rules and overrides for node files here
+        "node/no-unpublished-require": false,
+        "node/no-missing-require": false
       })
     }
   ]
