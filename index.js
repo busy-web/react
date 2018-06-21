@@ -1,6 +1,7 @@
 'use strict';
 
 //const webpack = require('ember-auto-import').webpackBundler;
+const cjsTransform = require('ember-cli-cjs-transform');
 
 module.exports = {
   name: '@busy-web/react',
@@ -62,80 +63,62 @@ module.exports = {
 		return true;
   },
 
-  // importTransforms: cjsTransform.importTransforms,
+  importTransforms: cjsTransform.importTransforms,
 
   importDependencies(app) {
     //console.log('webpack', webpack);
     // const autoImport = {
     //   modules: {
-    //     react: { include: true },
-    //     "react-dom": { include: true },
-    //     "prop-types": { include: true },
-    //     redux: { include: true },
+    //     tectonic: { include: true },
     //   }
     // };
 
     // app.options.autoImport = Object.assign({}, autoImport, app.options.autoImport);
     // this.options.autoImport = Object.assign({}, autoImport, this.options.autoImport);
+
+    // this.import('node_modules/tectonic-superagent/transpiled/index.js', {
+    //   using: [{ transformation: 'cjs', as: 'tectonic-superagent', plugins: [ superagent() ] }],
+    //   prepend: true
+    // });
+
+    // this.import('node_modules/tectonic/transpiled/index.js', {
+    //   using: [{ transformation: 'cjs', as: 'tectonic' }],
+    //   prepend: true
+    // });
+
+    // this.import({
+    //   development: 'node_modules/react-redux/dist/react-redux.js',
+    //   production: 'node_modules/react-redux/dist/react-redux.min.js'
+    // }, {
+    //   prepend: true
+    // });
+
+    // this.import({
+    //   development: 'node_modules/redux/dist/redux.js',
+    //   production: 'node_modules/redux/dist/redux.min.js'
+    // }, {
+    //   prepend: true
+    // });
+
+    // this.import({
+    //   development: 'node_modules/prop-types/prop-types.js',
+    //   production: 'node_modules/prop-types/prop-types.min.js'
+    // }, {
+    //   prepend: true
+    // });
+
+    // this.import({
+    //   development: 'node_modules/react-dom/umd/react-dom.development.js',
+    //   production: 'node_modules/react-dom/umd/react-dom.production.min.js'
+    // }, { prepend: true });
+
+    // this.import({
+    //   development: 'node_modules/react/umd/react.development.js',
+    //   production: 'node_modules/react/umd/react.production.min.js'
+    // }, { prepend: true });
+
+    // this.import('vendor/shims.js');
   }
-
-  //   this.import('node_modules/tectonic-superagent/transpiled/index.js', {
-  //     using: [{ transformation: 'cjs', as: 'tectonic-superagent', plugins: [ superagent() ] }],
-  //     prepend: true
-  //   });
-
-  //   this.import('node_modules/tectonic/transpiled/index.js', {
-  //     using: [{ transformation: 'cjs', as: 'tectonic' }],
-  //     prepend: true
-  //   });
-
-  //   this.import({
-  //     development: 'node_modules/react-redux/dist/react-redux.js',
-  //     production: 'node_modules/react-redux/dist/react-redux.min.js'
-  //   }, {
-  //     prepend: true
-  //   });
-
-	//   this.import({
-  //     development: 'node_modules/react-redux/dist/react-redux.js',
-  //     production: 'node_modules/react-redux/dist/react-redux.min.js'
-  //   }, {
-  //     prepend: true
-  //   });
-
-	//   this.import({
-  //     development: 'node_modules/redux/dist/redux.js',
-  //     production: 'node_modules/redux/dist/redux.min.js'
-  //   }, {
-  //     prepend: true
-  //   });
-
-	//   this.import({
-  //     development: 'node_modules/redux/dist/redux.js',
-  //     production: 'node_modules/redux/dist/redux.min.js'
-  //   }, {
-  //     prepend: true
-  //   });
-
-	//   this.import({
-	//     development: 'node_modules/prop-types/prop-types.js',
-	//     production: 'node_modules/prop-types/prop-types.min.js'
-  //   }, {
-  //     prepend: true
-  //   });
-
-	//   this.import({
-	//     development: 'node_modules/react-dom/umd/react-dom.development.js',
-	//     production: 'node_modules/react-dom/umd/react-dom.production.min.js'
-  //   }, { prepend: true });
-
-	//   this.import({
-	//     development: 'node_modules/react/umd/react.development.js',
-	//     production: 'node_modules/react/umd/react.production.min.js'
-  //   }, { prepend: true });
-
-    //this.import('vendor/shims.js');
-    //}
 };
 
 function addPlugin(name, babel) {

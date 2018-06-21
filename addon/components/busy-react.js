@@ -13,6 +13,7 @@ import { assert } from '@ember/debug';
 import { dasherize } from '@ember/string';
 import { assign } from '@ember/polyfills';
 
+import React from 'react';
 import ReactDom from 'react-dom';
 
 import createApp from './../app';
@@ -126,6 +127,8 @@ const ReactComponent = Component.extend({
 	layout: '',
 	name: null,
 	model: null,
+
+  layout: hbs("<div></div>"),
 
 	/**
 	 * render new react component into ember DOM
