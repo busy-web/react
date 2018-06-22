@@ -6,34 +6,29 @@
 const SUPPORTED = ['string', 'number', 'int', 'float', 'boolean'];
 
 export default function attr(type, opts={}) {
-  if (!type) {
-    throw new Error(`Type is a required param for attr()`);
-  }
-
-  if (SUPPORTED.indexOf(type) === -1) {
-    throw new Error(`Type is not supported in attr(), supported types are [ ${SUPPORTED.join(', ')} ]`);
-  }
-
-  if (!opts || typeof opts !== 'object' || opts.constructor !== Object) {
-    throw new Error(`opts must be an object as the second param to attr()`);
-  }
+  assertThrow(type, `Type is a required param for attr()`);
+  assertThrow(SUPPORTED.indexOf(type) !== -1, `Type is not supported in attr(), supported types are [ ${SUPPORTED.join(', ')} ]`);
+  assertThrow(opts && typeof opts === 'object' && opts.constructor === Object, `opts must be an object as the second param to attr()`);
 
   let meta = {
     type,
-    defaultValue: (opts.defaultValue || defaultTypeValue(type))
+    primaryKey: (opts.primaryKey || false),
+    foreignKey: (opts.filterKey || false),
+    filter: (opts.filter || false),
+    defaultValue: (opts.defaultValue || defaultTypeValue(type)),
   };
 
   return {
-    meta,
-
-    defaultValue() {
-      return meta.defaultValue;
-    },
-
-    get(model, key, value) {
-      return validateType(model, type, key, value);
-    }
+    getMeta: (prop) => meta[prop],
+    getMetaObject: () => meta,
+    get: (model, key, value) => validateType(model, type, key, value)
   };
+}
+
+function assertThrow(test, message) {
+  if (!test) {
+    throw new Error(message);
+  }
 }
 
 function defaultTypeValue(type) {

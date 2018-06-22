@@ -4,39 +4,38 @@
  */
 import Model from '../utils/model';
 import attr from '../utils/attr';
-import { ALLOWED_TYPES } from '../utils/define-api';
+import { FIND, FILTER, CREATE, UPDATE } from '../utils/define-api';
 
 class Member extends Model {
-  static primaryKey = 'id';
-  static filterKeys = ['username', 'firstName', 'lastName', 'email', 'memberNumber'];
-  static foreignKeys = ['positionId', 'organizationId', 'memberGroupId'];
-
-  static methodsAllowed = Object.values(ALLOWED_TYPES);
+  static methodsAllowed = [ FIND, FILTER, CREATE, UPDATE ];
 
   static properties = {
-    id: attr('string'),
-    username: attr('string'),
-    password: attr('string'),
-    firstName: attr('string'),
-    lastName: attr('string'),
-    email: attr('string'),
-    image: attr('string'),
+    id: attr('string', { primaryKey: true }),
+
+    organizationId: attr('string', { foreignKey: true }),
+    memberGroupId: attr('string', { foreignKey: true }),
+    positionId: attr('string', { foreignKey: true }),
+
+    username: attr('string', { filter: true }),
+    firstName: attr('string', { filter: true }),
+    lastName: attr('string', { filter: true }),
+    email: attr('string', { filter: true }),
+    memberNumber: attr('string', { filter: true }),
+
     imageUrl: attr('string'),
     imageThumbUrl: attr('string'),
-    organizationId: attr('string'),
-    memberGroupId: attr('string'),
-    positionId: attr('string'),
-    memberNumber: attr('string'),
+    password: attr('string'),
     phone: attr('string'),
+    usernameUnique: attr('boolean'),
     verifiedEmail: attr('boolean'),
     emailVerificationRequired: attr('boolean'),
-    usernameUnique: attr('boolean'),
-    archivedOn: attr('int'),
-    createdOn: attr('int'),
-    updatedOn: attr('int'),
-    deletedOn: attr('int'),
     sendEmail: attr('boolean'),
     sendText: attr('boolean'),
+
+    archivedOn: attr('int', { filter: true }),
+    updatedOn: attr('int', { filter: true }),
+    createdOn: attr('int'),
+    deletedOn: attr('int'),
   };
 }
 

@@ -49,12 +49,12 @@ function buildDriver(model, type) {
   url += `/${model.modelName}`;
 
   if (type === ALLOWED_TYPES.FIND) {
-    url += `/:${model.primaryKey}`;
-    driver.params = [ model.primaryKey ];
+    url += `/:${model.__primaryKey}`;
+    driver.params = [ model.__primaryKey ];
   } else if (type === ALLOWED_TYPES.FILTER) {
     driver.params = []
-      .concat(model.foreignKeys)
-      .concat(model.filterKeys);
+      .concat(model.__foreignKeys)
+      .concat(model.__filters);
   }
 
   // add version to url;

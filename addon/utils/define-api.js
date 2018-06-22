@@ -1,4 +1,22 @@
+/**
+ * @module Utils
+ *
+ */
 
+/**
+ * Type Constants
+ *
+ */
+export const FIND = "FIND";
+export const FILTER = "FILTER";
+export const CREATE = "CREATE";
+export const UPDATE = "UPDATE";
+export const DELETE = "DELETE";
+
+/**
+ * Allowable types
+ *
+ */
 export const ALLOWED_TYPES = {
   FIND: "FIND",
   FILTER: "FILTER",

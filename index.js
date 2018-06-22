@@ -55,6 +55,7 @@ module.exports = {
 		}
 
 		addPlugin('transform-class-properties', babel);
+		addPlugin('transform-decorators', babel);
 		addPlugin('transform-object-rest-spread', babel);
     addPlugin('transform-react-jsx', babel);
 
