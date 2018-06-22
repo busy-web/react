@@ -1,10 +1,17 @@
 'use strict';
 
-//const webpack = require('ember-auto-import').webpackBundler;
 const cjsTransform = require('ember-cli-cjs-transform');
 
 module.exports = {
   name: '@busy-web/react',
+
+  importTransforms: cjsTransform.importTransforms,
+
+  isDevelopingAddon() {
+    if (this.env === 'development') {
+      return true;
+    }
+  },
 
   config(env, config) {
     process.env.NODE_ENV = env;
@@ -26,6 +33,7 @@ module.exports = {
   },
 
   included: function included(app) {
+    this.env = app.env;
     this._super.included.apply(this, arguments);
 
     // see: https://github.com/ember-cli/ember-cli/issues/3718
@@ -36,7 +44,6 @@ module.exports = {
     this.app = app;
 
     this.setupOptions(app);
-    this.importDependencies(app);
   },
 
 	setupOptions(app) {
@@ -57,67 +64,6 @@ module.exports = {
 
     app.options.babel = babel;
     this.options = Object.assign({}, this.options, { babel });
-  },
-
-	isDevelopingAddon() {
-		return true;
-  },
-
-  importTransforms: cjsTransform.importTransforms,
-
-  importDependencies(app) {
-    //console.log('webpack', webpack);
-    // const autoImport = {
-    //   modules: {
-    //     tectonic: { include: true },
-    //   }
-    // };
-
-    // app.options.autoImport = Object.assign({}, autoImport, app.options.autoImport);
-    // this.options.autoImport = Object.assign({}, autoImport, this.options.autoImport);
-
-    // this.import('node_modules/tectonic-superagent/transpiled/index.js', {
-    //   using: [{ transformation: 'cjs', as: 'tectonic-superagent', plugins: [ superagent() ] }],
-    //   prepend: true
-    // });
-
-    // this.import('node_modules/tectonic/transpiled/index.js', {
-    //   using: [{ transformation: 'cjs', as: 'tectonic' }],
-    //   prepend: true
-    // });
-
-    // this.import({
-    //   development: 'node_modules/react-redux/dist/react-redux.js',
-    //   production: 'node_modules/react-redux/dist/react-redux.min.js'
-    // }, {
-    //   prepend: true
-    // });
-
-    // this.import({
-    //   development: 'node_modules/redux/dist/redux.js',
-    //   production: 'node_modules/redux/dist/redux.min.js'
-    // }, {
-    //   prepend: true
-    // });
-
-    // this.import({
-    //   development: 'node_modules/prop-types/prop-types.js',
-    //   production: 'node_modules/prop-types/prop-types.min.js'
-    // }, {
-    //   prepend: true
-    // });
-
-    // this.import({
-    //   development: 'node_modules/react-dom/umd/react-dom.development.js',
-    //   production: 'node_modules/react-dom/umd/react-dom.production.min.js'
-    // }, { prepend: true });
-
-    // this.import({
-    //   development: 'node_modules/react/umd/react.development.js',
-    //   production: 'node_modules/react/umd/react.production.min.js'
-    // }, { prepend: true });
-
-    // this.import('vendor/shims.js');
   }
 };
 

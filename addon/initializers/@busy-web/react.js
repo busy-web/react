@@ -8,6 +8,7 @@ export function initialize(application) {
   // node process variable used by react
   const process = {};
   process.env = get(application, 'busy-web.react');
+  process.app = Object.assign({}, application);
 
   // attach process to window for global access
   window.process = process;

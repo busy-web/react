@@ -4,6 +4,7 @@
  */
 import { Manager, BaseResolver } from 'tectonic';
 import TectonicSuperagent from 'tectonic-superagent'; // superagent driver
+import drivers from './drivers';
 import store from './store';
 
 // create a new manager with all of the options provided
@@ -25,5 +26,11 @@ const manager = new Manager({
   // the tectonic reducer
   store: store,
 });
+
+const ds = drivers();
+
+console.log('drivers', ds);
+
+manager.drivers.fromSuperagent(ds);
 
 export default manager;

@@ -1,5 +1,6 @@
 module.exports = {
   root: true,
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2017,
     sourceType: 'module',
@@ -8,14 +9,14 @@ module.exports = {
 		}
   },
   plugins: [
-		'babel',
+    'babel',
     'ember',
 		'react'
   ],
   extends: [
     'eslint:recommended',
     'plugin:ember/recommended',
-		'plugin:react/recommended'
+		'plugin:react/recommended',
   ],
   env: {
     browser: true

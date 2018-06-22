@@ -8,12 +8,11 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 //import { get, observer } from '@ember/object';
 import { getOwner } from '@ember/application';
-import { isNone, isEmpty } from '@ember/utils';
+import { /*isNone,*/ isEmpty } from '@ember/utils';
 import { assert } from '@ember/debug';
 import { dasherize } from '@ember/string';
 import { assign } from '@ember/polyfills';
 
-import React from 'react';
 import ReactDom from 'react-dom';
 
 import createApp from './../app';
@@ -64,29 +63,33 @@ export default Component.extend({
       owner.register(`component:${reactName}`, component);
     }
 
-		// init state object
-		if (isNone(this.__state__)) {
-			this.__state__ = {};
-		}
-
-		// update state with auth data
-		this.setupData();
-  },
-
-  setupData() {
-		// create auth object
-		let auth = {
-			member: this.get('auth.member.id'),
-			position: this.get('auth.member.positionId'),
-			organization: this.get('auth.organization.id')
-		};
-
 		// get model data
     const model = this.get('model');
     const modelData = reactDataParser(model, this.__state__);
 
 		// store state for immutable updates
-		this.__state__ = assign({}, auth, modelData);
+		this.__state__ = assign({}, modelData);
+
+    // // init state object
+		// if (isNone(this.__state__)) {
+		//   this.__state__ = {};
+		// }
+
+		// update state with auth data
+    //this.setupData();
+  },
+
+  setupData() {
+		// create auth object
+		// let auth = {
+		//   member: this.get('auth.member.id'),
+		//   position: this.get('auth.member.positionId'),
+		//   organization: this.get('auth.organization.id')
+		// };
+
+
+    //modelData.__auth__ = auth;
+
   },
 
 	// setupAuth: observer('auth.member.id', function() {
@@ -124,7 +127,6 @@ export default Component.extend({
  *
  */
 const ReactComponent = Component.extend({
-	layout: '',
 	name: null,
 	model: null,
 
