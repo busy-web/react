@@ -3,9 +3,10 @@
  *
  */
 import { Manager, BaseResolver } from 'tectonic';
-import TectonicSuperagent from 'tectonic-superagent'; // superagent driver
+import BusySuperagent from './utils/busy-superagent';
 import drivers from './drivers';
 import store from './store';
+
 
 // create a new manager with all of the options provided
 const manager = new Manager({
@@ -19,7 +20,17 @@ const manager = new Manager({
     // install the superagent driver with default options. For more options
     // such as global request modifiers (eg. to add headers to every request)
     // see the tectonic-superagent documentation.
-    fromSuperagent: new TectonicSuperagent(),
+    fromSuperagent: new BusySuperagent({
+      request: (r) => {
+        r.set('Content-Type', 'application/json');
+        let auth = window.localStorage.getItem('auth-member');
+        if (auth && auth.length) {
+          auth = JSON.parse(auth);
+          r.set('Key-Authorization', auth.token);
+        }
+        return r;
+      }
+    }),
   },
 
   // give the manager access to your redux store so we can save data within
@@ -27,10 +38,6 @@ const manager = new Manager({
   store: store,
 });
 
-const ds = drivers();
-
-console.log('drivers', ds);
-
-manager.drivers.fromSuperagent(ds);
+manager.drivers.fromSuperagent(drivers());
 
 export default manager;

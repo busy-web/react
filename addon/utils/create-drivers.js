@@ -2,6 +2,7 @@
  * @module Utils
  *
  */
+import { camelCase, snakeCase, concat } from 'lodash';
 import { ALLOWED_TYPES, API_TYPES, METHOD_TYPES, QUERY_TYPES } from './define-api';
 
 function appSetting(name) {
@@ -31,14 +32,15 @@ function getUrlForType(apiType) {
 }
 
 function buildDriver(model, type) {
-  let driver = {};
+  let driver = {
+    id: `__${model.className}--${type}__`,
+    model: model
+  };
 
   // set returns handle or model for delete
   if (type === ALLOWED_TYPES.FILTER) {
     driver.returns = model.list();
-  } else if (type === ALLOWED_TYPES.DELETE) {
-    driver.model = model;
-  } else {
+  } else if (type !== ALLOWED_TYPES.DELETE) {
     driver.returns = model.item();
   }
 
@@ -49,12 +51,16 @@ function buildDriver(model, type) {
   url += `/${model.modelName}`;
 
   if (type === ALLOWED_TYPES.FIND) {
-    url += `/:${model.__primaryKey}`;
-    driver.params = [ model.__primaryKey ];
+    url += `/:${snakeCase(model.__primaryKey)}`;
+    driver.params = [ snakeCase(model.__primaryKey) ];
   } else if (type === ALLOWED_TYPES.FILTER) {
-    driver.params = []
-      .concat(model.__foreignKeys)
-      .concat(model.__filters);
+    driver.optionalParams = (
+      concat(
+        model.__foreignKeys.map(k => snakeCase(k)),
+        model.__filters.map(k => snakeCase(k)),
+        model.defaultFilters.map(k => '_' + snakeCase(k))
+      )
+    );
   }
 
   // add version to url;
@@ -64,12 +70,42 @@ function buildDriver(model, type) {
   const method = METHOD_TYPES[type];
 
   // add url to meta object
-  driver.meta = Object.assign({ url, method }, model.meta);
+  driver.meta = Object.assign({
+    url,
+    method,
+    //headers: ? r.set(headers);
+    transform(response) {
+      return normailzeResponse(type, response);
+    }
+  }, model.meta);
 
   // add query type
   driver.queryType = QUERY_TYPES[type];
 
   return driver;
+}
+
+function normailzeResponse(type, response) {
+  if (!response.ok) {
+    return response;
+  }
+
+  let data = response.body;
+  if (!data.success) {
+    response.error = true;
+    response.clientError = true;
+    return response;
+  }
+
+  const result = data.data.map(din => {
+    return Object.assign(...Object.keys(din).map(k => ({ [camelCase(k)]: din[k] })));
+  });
+
+  if (type === ALLOWED_TYPES.FILTER) {
+    return result;
+  } else {
+    return result[0];
+  }
 }
 
 export default function createDrivers(model) {

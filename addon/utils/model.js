@@ -2,6 +2,7 @@
  * @module Utils
  *
  */
+import { kebabCase } from 'lodash';
 import { Model as BaseModel } from 'tectonic';
 import createDrivers from './create-drivers';
 import { FIND, FILTER, API_TYPES } from './define-api';
@@ -10,6 +11,7 @@ import { FIND, FILTER, API_TYPES } from './define-api';
 export default class Model extends BaseModel {
   static apiType = API_TYPES.REST; // default api type
   static methodsAllowed = [ FIND, FILTER ]; // default methods allowed
+  static defaultFilters = [ '_in', '_lte', '_gte', '_equal', '_not_equal' ];
 
   static properties = {};
 
@@ -52,7 +54,7 @@ export default class Model extends BaseModel {
       if (hasProps) {
         value = attr.get(this, key, this.__fields[key]);
       } else {
-        value = attr.defaultValue();
+        value = attr.getMeta('defaultValue');
       }
 
       return { [key]: value };
@@ -64,9 +66,7 @@ export default class Model extends BaseModel {
   }
 
   static get modelName() {
-    let name = this.className;
-    name = name[0].toLowerCase() + name.slice(1);
-    name = name.replace(/([A-Z])/g, letter => `-${letter.toLowerCase()}`);
+    let name = kebabCase(this.className);
     return name;
   }
 
@@ -76,7 +76,7 @@ export default class Model extends BaseModel {
   }
 
   static get idField() {
-    return this.primaryKey;
+    return this.__primaryKey;
   }
 
   static getDrivers() {

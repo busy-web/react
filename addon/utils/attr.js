@@ -13,7 +13,7 @@ export default function attr(type, opts={}) {
   let meta = {
     type,
     primaryKey: (opts.primaryKey || false),
-    foreignKey: (opts.filterKey || false),
+    foreignKey: (opts.foreignKey || false),
     filter: (opts.filter || false),
     defaultValue: (opts.defaultValue || defaultTypeValue(type)),
   };
