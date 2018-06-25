@@ -1,11 +1,7 @@
 'use strict';
 
-const cjsTransform = require('ember-cli-cjs-transform');
-
 module.exports = {
   name: '@busy-web/react',
-
-  importTransforms: cjsTransform.importTransforms,
 
   isDevelopingAddon() {
     if (this.env === 'development') {
